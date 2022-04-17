@@ -15,12 +15,12 @@ namespace Commander.Data
         public IEnumerable<Command> GetAppCommands()
         {
             return _context.Commands.ToList();
-            // throw new System.NotImplementedException();
+            // ToList wil return all commands in the Db();
         }
 
         public Command GetCommandById(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.Commands.FirstOrDefault(p => p.Id == id);
         }
     }
 }
