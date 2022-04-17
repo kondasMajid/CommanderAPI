@@ -26,7 +26,7 @@ namespace Commander.Controllers
         public ActionResult <IEnumerable<Command>> GetAllCommands()
         {
             var commandsItems = _repository.GetAppCommands();
-            return Ok(commandsItems);
+            return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(commandsItems));
         }
 
         // Get api/commands/{id }
