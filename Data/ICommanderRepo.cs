@@ -10,5 +10,6 @@ namespace Commander.Data
         IEnumerable<Command> GetAppCommands();
         Command GetCommandById(int id);
         void CreateCommand(Command cmd);
+        void UpdateCommand(Command cmd);
     }
 }
