@@ -8,8 +8,9 @@ namespace Commander.Profiles
   {
       public CommandsProfile()
       {
-          
+                // SourceMemberNamingConvention to tsrget our destination  
               CreateMap<Command, CommandReadDto>();
+              CreateMap<CommandCreateDto, Command>();
           
       }
   }  
