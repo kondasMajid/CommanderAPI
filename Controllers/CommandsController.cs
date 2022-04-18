@@ -97,7 +97,6 @@ namespace Commander.Controllers
             {
                 return ValidationProblem(ModelState);
             }
-
             // UpdateCommand MOdel Data repository 
             _mapper.Map(commandToPatch, commamdModelFromRepo);
             // UpdateCommand command 
@@ -105,7 +104,23 @@ namespace Commander.Controllers
             // ServiceFilterAttribute changes in our db 
             _repository.SaveChanges();
             return NotFound();
-            
         }
+
+        //DELETE api/commands/{id
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCommand(int id)
+        {
+
+            var commamdModelFromRepo = _repository.GetCommandById(id);
+            if (commamdModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _repository.DeleteCommand(commamdModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+
+        }
+
     }
 }

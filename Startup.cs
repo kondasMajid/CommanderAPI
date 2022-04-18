@@ -37,8 +37,8 @@ namespace Commander
             
             // services.AddControllers();
 
-            services.AddControllers().AddNewAddNewtonsoftJson(s => {
-                s.serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            services.AddControllers().AddNewtonsoftJson(s => {
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
 
