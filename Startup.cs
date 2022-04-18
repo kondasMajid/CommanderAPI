@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace Commander
 {
@@ -34,14 +35,20 @@ namespace Commander
             (Configuration.GetConnectionString("CommanderConnection")));
 
             
-            services.AddControllers();
+            // services.AddControllers();
+
+            services.AddControllers().AddNewAddNewtonsoftJson(s => {
+                s.serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Commander", Version = "v1" });
             });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            
+
             services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
         }
 
