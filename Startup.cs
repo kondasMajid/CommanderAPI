@@ -29,6 +29,14 @@ namespace Commander
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+             services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin", builder => builder.AllowAnyOrigin()
+                   .AllowAnyHeader().AllowAnyMethod()
+                   .WithExposedHeaders("X-Total-Records"));
+
+            });
 
             // ApiDescriptionActionData Db Configuration
             services.AddDbContext<CommanderContext>(opt => opt.UseSqlServer
@@ -69,9 +77,13 @@ namespace Commander
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
+            { 
                 endpoints.MapControllers();
             });
+
+            app.UseCors(options => options.AllowAnyOrigin()
+            .AllowAnyHeader().AllowAnyMethod()
+            .WithExposedHeaders("X-Total-Records"));
         }
     }
 }
