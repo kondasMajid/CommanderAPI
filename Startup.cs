@@ -30,7 +30,7 @@ namespace Commander
         public void ConfigureServices(IServiceCollection services)
         {
             
-             services.AddCors(options =>
+              services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigin", builder => builder.AllowAnyOrigin()
                    .AllowAnyHeader().AllowAnyMethod()
@@ -70,6 +70,11 @@ namespace Commander
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Commander v1"));
             }
 
+              app.UseCors(options => options.AllowAnyOrigin()
+             .AllowAnyHeader().AllowAnyMethod()
+             .WithExposedHeaders("X-Total-Records"));
+
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -81,9 +86,7 @@ namespace Commander
                 endpoints.MapControllers();
             });
 
-            app.UseCors(options => options.AllowAnyOrigin()
-            .AllowAnyHeader().AllowAnyMethod()
-            .WithExposedHeaders("X-Total-Records"));
+          
         }
     }
 }
